@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:foodie/pages/main_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage();
@@ -40,11 +41,17 @@ class HomePage extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: BorderSide(color: Colors.brown[300])),
-                  onPressed: () {},
-                  color: Colors.brown[300],
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MainPage())
+                    );
+                  },
+                  color: Color(0xffa59671),
                   textColor: Colors.white,
                   child: Container(
                     width: MediaQuery.of(context).size.width - 200,
+                    height: 40,
                     alignment: Alignment.center,
                     child: Text("Start Cooking", style: TextStyle(fontSize: 14)),
                   ),
