@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodie/models/catagory.dart';
+import 'package:foodie/utils/general_util.dart';
 
 class CatagoryPage extends StatefulWidget {
   CatagoryPage(this.catagory);
@@ -11,6 +12,23 @@ class CatagoryPage extends StatefulWidget {
 }
 
 class _CatagoryPageState extends State<CatagoryPage> {
+
+  bool _userLoggedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIfUser();
+  }
+
+  void _checkIfUser() async{
+   bool _user = await isUserLoggedIn();
+   print(_user);
+   setState(() {
+     _userLoggedIn = _user;
+   });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -107,7 +125,15 @@ class _CatagoryPageState extends State<CatagoryPage> {
               ],
             ),
           ),
-        )
+        ),
+        floatingActionButton: !_userLoggedIn? null : 
+          FloatingActionButton(
+            onPressed: (){
+              print("Add Recipe");
+            },
+            backgroundColor: Color(0xffa59671),
+            child: Icon(Icons.add)
+          ),
       )
     );
   }
