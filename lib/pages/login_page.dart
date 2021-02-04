@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodie/components/Inputs/password_input.dart';
 import 'package:foodie/components/Inputs/phone_number_input.dart';
+import 'package:foodie/models/user.dart';
+import 'package:foodie/pages/main_page.dart';
+import 'package:foodie/services/auth_services.dart';
+import 'package:foodie/utils/general_util.dart';
+
+import '../finder.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage();
@@ -12,10 +18,29 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
-   String _password = "tes";
+   AuthService _authService = locator<AuthService>();
+   
+   String _password;
    String _phone;
    bool _rememeberUser = true;
+
+   void _loginPage() async{
+     if(_phone == null || _password == null ){
+       showToast("Fill in all fileds", true);
+       return;
+     }
+
+    User user = await  _authService.loginUser(_phone, _password, _rememeberUser);
+    if(user == null){
+      showToast("Login Faild", true);
+    }else{
+    showToast("Login Sucessful", false);
+      Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) =>  MainPage()),
+            );
+    }
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(18.0),
                         side: BorderSide(color: Colors.brown[300])),
                       onPressed: () {
-                        print("Login");
+                        _loginPage();
                       },
                       color: Color(0xffa59671),
                       textColor: Colors.white,
