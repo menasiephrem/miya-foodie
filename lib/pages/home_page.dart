@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:foodie/pages/login_page.dart';
 import 'package:foodie/pages/main_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -28,7 +29,7 @@ class HomePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Good Food",
+                      "Foodie",
                       style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
                     ),
                     Text(
@@ -45,6 +46,12 @@ class HomePage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => MainPage())
+                    );
+                  },
+                  onLongPress: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage())
                     );
                   },
                   color: Color(0xffa59671),
