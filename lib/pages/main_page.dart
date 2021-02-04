@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodie/components/food_cat_card_item.dart';
+import 'package:foodie/models/catagory.dart';
 
 class MainPage extends StatefulWidget {
   MainPage();
@@ -43,7 +44,8 @@ class _MainPageState extends State<MainPage> {
                    child:ListView.builder(
                       itemCount: 4,
                       itemBuilder: (con, index) {
-                        return FoodCatItem(catagoryImg[index], catagoryName[index], catagoryDesc[index]);
+
+                        return FoodCatItem(new Catagory(catagoryName[index], catagoryImg[index], catagoryDesc[index]));
                       },
                     )
                  ) 
