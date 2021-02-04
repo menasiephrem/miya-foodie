@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "575835870382",
+    "project_id": "miya-foodie",
+    "storage_bucket": "miya-foodie.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575835870382:android:10b0086ec829d219f5093f",
+        "android_client_info": {
+          "package_name": "com.example.foodie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575835870382-3nbhnenfvciivce27pm8729jl0jm9a69.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVl99yyzJyDLnqPllmYI2d7IE5WBlzZlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575835870382-3nbhnenfvciivce27pm8729jl0jm9a69.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
