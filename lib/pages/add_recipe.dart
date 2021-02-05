@@ -1,21 +1,113 @@
+import 'dart:io';
 import 'dart:ui';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodie/components/Inputs/input_detail.dart';
 import 'package:foodie/components/Inputs/input_text_area.dart';
 import 'package:foodie/components/Inputs/number_imput.dart';
+import 'package:foodie/models/recipe.dart';
+import 'package:foodie/utils/general_util.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddRecipe extends StatefulWidget {
-  AddRecipe(this.userName, this.catgory);
-  final String userName;
+  AddRecipe(this.user, this.catgory);
+  final String user;
   final String catgory;
   @override
   _AddRecipeState createState() => _AddRecipeState();
 }
 
 class _AddRecipeState extends State<AddRecipe> {
+
+  final picker = ImagePicker(); 
+  bool picLoaded = false;
+  bool loadingPic = false;
+  Recipe _recipe;
+
+
+  @override
+  void initState() { 
+    super.initState();
+    setState(() {
+      _recipe = Recipe.init(this.widget.user, this.widget.catgory);
+    });
+  }
+
+  Future uploadFile(File _image) async {   
+    setState(() {
+      loadingPic = true;
+    });  
+    Reference storageReference = FirebaseStorage.instance    
+        .ref()    
+        .child('foodPics/${DateTime.now().microsecondsSinceEpoch}');    
+    UploadTask uploadTask = storageReference.putFile(_image);    
+    await uploadTask;    
+    print('File Uploaded');    
+    storageReference.getDownloadURL().then((fileURL) { 
+      _recipe.img = fileURL;
+      setState(() {     
+        loadingPic = false;
+      });    
+      _saveRecipe();
+    });    
+  } 
+
+  void _saveRecipe() {
+    print(_recipe.toJson());
+  }
+
+  void _showPicker(contextcontext) async{
+    if(_recipe.isEmpty()){
+      showToast("Fill in all fileds", true);
+      return;
+    }
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () async {
+                      final pickedFile = await picker.getImage(source: ImageSource.gallery, maxHeight:  600 , maxWidth: 600,);
+                      if (pickedFile != null) {
+                          File image  = File(pickedFile.path);
+                          uploadFile(image);
+                          Navigator.of(context).pop();
+                        } else {
+                          print('No image selected.');
+                        }
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () async {
+                    final pickedFile = await picker.getImage(source: ImageSource.camera, maxHeight:  600 , maxWidth: 600,);
+                        if (pickedFile != null) {
+                          File image  = File(pickedFile.path);
+                          uploadFile(image);
+                          Navigator.of(context).pop();
+                        } else {
+                          print('No image selected.');
+                        }
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+      );
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,34 +182,36 @@ class _AddRecipeState extends State<AddRecipe> {
                             ),
                             SizedBox(height: 30),
                             InputForm((name) => {
-
-                            }, "Add Recipe Name*"),
+                              _recipe.name = name
+                            }, "Add Name*"),
                             SizedBox(height: 10),
-                            InputForm((name) => {
-
+                            InputForm((description) => {
+                              _recipe.description = description
                             }, "Add Short Description*"),
                             SizedBox(height: 10),
-                            NumberInput((name) => {
-
+                            NumberInput((serving) => {
+                              _recipe.serving = serving
                             }, "Add Serving*"),
                             SizedBox(height: 10),
-                            NumberInput((name) => {
-
+                            NumberInput((prepareTime) => {
+                              _recipe.prepareTime = prepareTime
                             }, "Add prepare time (min)*"),
                             SizedBox(height: 10),
-                            NumberInput((name) => {
-
+                            NumberInput((cookingTime) => {
+                              _recipe.cookingTime = cookingTime
                             }, "Add cooking time (min)*"),
                             SizedBox(height: 10),
-                            InputTextArea((name) => {
-
+                            InputTextArea((note) => {
+                              _recipe.note = note
                             }, "Add note"),
                             SizedBox(height: 10),
+                            !loadingPic ?
                             RaisedButton(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18.0),
                                 side: BorderSide(color: Colors.brown[300])),
                               onPressed: () {
+                                _showPicker(context);
                               },
                               color: Color(0xffa59671),
                               textColor: Colors.white,
@@ -125,9 +219,9 @@ class _AddRecipeState extends State<AddRecipe> {
                                 width: MediaQuery.of(context).size.width - 200,
                                 height: 40,
                                 alignment: Alignment.center,
-                                child: Text("Add Recipe", style: TextStyle(fontSize: 14)),
+                                child: Text(picLoaded?  "Add Recipe" : "Upload Picture", style: TextStyle(fontSize: 14)),
                               ),
-                            )
+                            ): CircularProgressIndicator()
                           ],
                         ),
                       )

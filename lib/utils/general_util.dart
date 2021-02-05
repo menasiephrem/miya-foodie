@@ -24,7 +24,7 @@ Future<bool> isUserLoggedIn() async{
   return userName != null && userName != "";
 }
 
-Future<bool> getLoggedInUser() async{
+Future<String> getLoggedInUser() async{
   if(await isUserLoggedIn()){
     return await FlutterSession().get("userName");
   }

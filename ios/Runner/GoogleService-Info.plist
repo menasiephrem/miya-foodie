@@ -30,5 +30,9 @@
 	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:575835870382:ios:ed88698eb3476881f5093f</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Upload recipe image from galary</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Upload recipe image from camera</string>
 </dict>
 </plist>

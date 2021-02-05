@@ -15,6 +15,7 @@ class CatagoryPage extends StatefulWidget {
 class _CatagoryPageState extends State<CatagoryPage> {
 
   bool _userLoggedIn = false;
+  String _loggedInUser;
 
   @override
   void initState() {
@@ -24,10 +25,13 @@ class _CatagoryPageState extends State<CatagoryPage> {
 
   void _checkIfUser() async{
    bool _user = await isUserLoggedIn();
-   print(_user);
-   setState(() {
-     _userLoggedIn = _user;
-   });
+   if(_user){
+     String userName = await getLoggedInUser();
+    setState(() {
+      _userLoggedIn = _user;
+      _loggedInUser = userName;
+    });
+   }
   }
 
   @override
@@ -132,7 +136,7 @@ class _CatagoryPageState extends State<CatagoryPage> {
             onPressed: (){
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AddRecipe("", this.widget.catagory.name))
+                MaterialPageRoute(builder: (context) => AddRecipe(_loggedInUser, this.widget.catagory.name))
               );
             },
             backgroundColor: Color(0xffa59671),

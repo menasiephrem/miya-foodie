@@ -26,6 +26,7 @@ dependencies:
   get_it: ^4.0.4
   flutter_session: ^0.1.1
   flutter_svg: ^0.19.2+1
+  image_picker: ^0.6.7+12
 
 dev_dependencies:
   flutter_test:
