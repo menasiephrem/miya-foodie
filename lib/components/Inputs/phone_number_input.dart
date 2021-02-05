@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // ignore: must_be_immutable
 class PhoneNumberInput extends StatelessWidget {
@@ -11,7 +10,6 @@ class PhoneNumberInput extends StatelessWidget {
         obscureText: false,
         style: style,
         onChanged: this.onSubmit,
-        keyboardType: TextInputType.number,
         decoration: InputDecoration(
             hintText: "User Name",
             hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18)
