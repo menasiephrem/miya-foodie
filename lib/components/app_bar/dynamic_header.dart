@@ -12,7 +12,6 @@ class MyDynamicHeader extends SliverPersistentHeaderDelegate {
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return LayoutBuilder(
         builder: (context, constraints) {
-          final double percentage = (maxExtent - minExtent)/(constraints.maxHeight - minExtent);
           return Container(
             width: MediaQuery.of(context).size.width, 
             decoration: BoxDecoration(
@@ -33,7 +32,7 @@ class MyDynamicHeader extends SliverPersistentHeaderDelegate {
             child: Stack(
               children: [
                 BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: percentage - 1, sigmaY: percentage - 1),
+                  filter: ImageFilter.blur(sigmaX:  0, sigmaY: 0),
                   child: Container(
                     decoration: BoxDecoration(color: Colors.white.withOpacity(0)),
                   ),
@@ -64,7 +63,7 @@ class MyDynamicHeader extends SliverPersistentHeaderDelegate {
   bool shouldRebuild(SliverPersistentHeaderDelegate _) => true;
 
   @override
-  double get maxExtent => 350.0;
+  double get maxExtent => 400.0;
 
   @override
   double get minExtent => 80.0;

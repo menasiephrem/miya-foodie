@@ -8,7 +8,7 @@ class Recipe {
   String prepareTime;
   String cookingTime;
   String note;
-  List<String> ingredients;
+  List<dynamic> ingredients;
   List<Map<String, String>> directions;
   DateTime createdAt;
   String createdBy;
