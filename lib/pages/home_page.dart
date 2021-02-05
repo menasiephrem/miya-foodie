@@ -2,10 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodie/pages/login_page.dart';
 import 'package:foodie/pages/main_page.dart';
+import 'package:foodie/utils/general_util.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage();
+class HomePage extends StatefulWidget {
+  HomePage();
 
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    loadSession();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
