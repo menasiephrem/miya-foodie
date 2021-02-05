@@ -9,8 +9,11 @@ import 'package:foodie/components/Inputs/input_detail.dart';
 import 'package:foodie/components/Inputs/input_text_area.dart';
 import 'package:foodie/components/Inputs/number_imput.dart';
 import 'package:foodie/models/recipe.dart';
+import 'package:foodie/services/recipe_services.dart';
 import 'package:foodie/utils/general_util.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../finder.dart';
 
 class AddRecipe extends StatefulWidget {
   AddRecipe(this.user, this.catgory);
@@ -21,7 +24,7 @@ class AddRecipe extends StatefulWidget {
 }
 
 class _AddRecipeState extends State<AddRecipe> {
-
+  RecipeService _recipeService = locator<RecipeService>();
   final picker = ImagePicker(); 
   bool picLoaded = false;
   bool loadingPic = false;
@@ -48,15 +51,13 @@ class _AddRecipeState extends State<AddRecipe> {
     print('File Uploaded');    
     storageReference.getDownloadURL().then((fileURL) { 
       _recipe.img = fileURL;
-      setState(() {     
-        loadingPic = false;
-      });    
       _saveRecipe();
     });    
   } 
 
-  void _saveRecipe() {
-    print(_recipe.toJson());
+  void _saveRecipe() async {
+    await _recipeService.createRecipe(_recipe);
+    Navigator.of(context).pop();
   }
 
   void _showPicker(contextcontext) async{
