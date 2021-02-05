@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:foodie/components/recipes/all_recipes_list.dart';
 import 'package:foodie/models/catagory.dart';
 import 'package:foodie/pages/add_recipe.dart';
 import 'package:foodie/utils/general_util.dart';
@@ -120,7 +121,7 @@ class _CatagoryPageState extends State<CatagoryPage> {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      Center(child:Text("All")),
+                      AllRecipes(this.widget.catagory.name),
                       Center(child:Text("Popular")),
                       Center(child:Text("New")),
                     ],

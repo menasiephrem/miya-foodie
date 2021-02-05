@@ -15,6 +15,8 @@ class Recipe {
   String createdByName;
   String img;
   String type;
+  int rating;
+  int voteCount;
 
 
   Recipe.empty();
@@ -24,12 +26,16 @@ class Recipe {
     this.createdBy = createdBy;
     this.type = type;
     this.id = "${this.createdAt.microsecondsSinceEpoch}";
+    rating = 0;
+    voteCount = 0;
   }
 
 
   Recipe.fromData(Map<String, dynamic> data){
       this.id = data['id'];
       this.type = data['type'];
+      this.rating = data['rating'];
+      this.voteCount = data['voteCount'];
       this.img = data['img'];
       this.name = data['name'];
       this.description = data['description'];
@@ -47,6 +53,8 @@ class Recipe {
   Map<String, dynamic> toJson() => {
       'id': id,
       'img': img,
+      'rating': rating,
+      'voteCount': voteCount,
       'name':name,
       'type':type,
       'description':description,
