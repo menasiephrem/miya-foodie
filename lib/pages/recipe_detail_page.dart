@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodie/components/app_bar/dynamic_header.dart';
+import 'package:foodie/components/recipes/directions_list.dart';
 import 'package:foodie/components/recipes/ingredients_list.dart';
 import 'package:foodie/components/starts.dart';
 import 'package:foodie/models/recipe.dart';
@@ -179,7 +180,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                       child: TabBarView(
                         children: [
                           Ingredients(this.widget.recipe.ingredients == null ? [] : this.widget.recipe.ingredients),
-                          Center(child:Text("New")),
+                          Directions(this.widget.recipe.directions == null ? new Map(): this.widget.recipe.directions),
                         ],
                       ),
                     )
