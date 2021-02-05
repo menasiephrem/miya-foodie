@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 
-class InputForm extends StatelessWidget {
-  InputForm(this.onSubmit, this.hint);
+class InputTextArea extends StatelessWidget {
+  InputTextArea(this.onSubmit, this.hint);
   final Function onSubmit;
   final String hint;
   @override
@@ -10,6 +10,7 @@ class InputForm extends StatelessWidget {
     return TextField(
           obscureText: false,
           style: style,
+          maxLines: 4,
           onChanged: this.onSubmit,
            decoration: InputDecoration(
             hintText: this.hint,

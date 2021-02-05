@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodie/models/catagory.dart';
+import 'package:foodie/pages/add_recipe.dart';
 import 'package:foodie/utils/general_util.dart';
 
 class CatagoryPage extends StatefulWidget {
@@ -129,7 +130,10 @@ class _CatagoryPageState extends State<CatagoryPage> {
         floatingActionButton: !_userLoggedIn? null : 
           FloatingActionButton(
             onPressed: (){
-              print("Add Recipe");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddRecipe("", this.widget.catagory.name))
+              );
             },
             backgroundColor: Color(0xffa59671),
             child: Icon(Icons.add)

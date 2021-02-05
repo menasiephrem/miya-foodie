@@ -25,6 +25,7 @@ dependencies:
   fluttertoast: ^4.0.0
   get_it: ^4.0.4
   flutter_session: ^0.1.1
+  flutter_svg: ^0.19.2+1
 
 dev_dependencies:
   flutter_test:
