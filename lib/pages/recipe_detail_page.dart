@@ -171,7 +171,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                         labelColor: Color(0xffa59671),
                         labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
                         tabs: [
-                          Tab(text: "Ingredinets"),
+                          Tab(text: "Ingredient"),
                           Tab(text: "Directions"),
                         ],
                       )
