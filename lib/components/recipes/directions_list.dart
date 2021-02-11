@@ -4,16 +4,15 @@ import 'package:foodie/components/list/directions_list_item.dart';
 
 class Directions extends StatelessWidget {
   const Directions(this.directions);
-  final Map<dynamic, dynamic> directions;
+  final List<Map<String, String>> directions;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ListView.builder(
-        itemCount: this.directions.keys.length,
+        itemCount: this.directions.length,
         itemBuilder: (con, index) {
-          var key = this.directions.keys.toList()[index];
-          return DirectionsListItem(key, this.directions[key], index);
+          return DirectionsListItem(directions[index]['title'], directions[index]['step'], index);
         },
       ),
     );

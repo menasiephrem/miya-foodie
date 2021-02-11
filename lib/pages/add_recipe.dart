@@ -56,7 +56,7 @@ class _AddRecipeState extends State<AddRecipe> {
   } 
 
   void _saveRecipe() async {
-    await _recipeService.createRecipe(_recipe);
+    await _recipeService.createRecipeDraft(_recipe);
     Navigator.of(context).pop();
   }
 

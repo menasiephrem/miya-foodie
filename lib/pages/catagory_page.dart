@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:foodie/components/recipes/all_recipe_darfts.dart';
 import 'package:foodie/components/recipes/all_recipes_list.dart';
 import 'package:foodie/models/catagory.dart';
 import 'package:foodie/pages/add_recipe.dart';
@@ -35,10 +36,22 @@ class _CatagoryPageState extends State<CatagoryPage> {
    }
   }
 
+  List<Tab> _getTabNames(){
+    var _tabs = [ Tab(text: "All"), Tab(text: "Popular"), Tab(text: "New") ];
+    if(_userLoggedIn) _tabs.add(Tab(text: "Draft"));
+    return _tabs;
+  }
+
+   List<Widget> _getTabChildren(Catagory catagory){
+    var _tabs = [ AllRecipes(catagory.name), Center(child:Text("Popular")), Center(child:Text("New")), ];
+    if(_userLoggedIn) _tabs.add(AllRecipeDrafts(catagory.name, _loggedInUser));
+    return _tabs;
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: _userLoggedIn? 4 : 3,
       child: Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light, 
@@ -112,19 +125,11 @@ class _CatagoryPageState extends State<CatagoryPage> {
                 TabBar(
                   labelColor: Color(0xffa59671),
                   labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
-                  tabs: [
-                    Tab(text: "All"),
-                    Tab(text: "Popular"),
-                    Tab(text: "New"),
-                  ],
+                  tabs: _getTabNames(),
                 ),
                 Expanded(
                   child: TabBarView(
-                    children: [
-                      AllRecipes(this.widget.catagory.name),
-                      Center(child:Text("Popular")),
-                      Center(child:Text("New")),
-                    ],
+                    children:_getTabChildren(this.widget.catagory),
                   ),
                 )
                 

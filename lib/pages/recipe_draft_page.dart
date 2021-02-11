@@ -7,14 +7,14 @@ import 'package:foodie/components/starts.dart';
 import 'package:foodie/models/recipe.dart';
 import 'package:foodie/utils/general_util.dart';
 
-class RecipeDetailPage extends StatefulWidget {
-  RecipeDetailPage(this.recipe);
+class RecipeDraftPage extends StatefulWidget {
+  RecipeDraftPage(this.recipe);
   final Recipe recipe;
   @override
-  _RecipeDetailPageState createState() => _RecipeDetailPageState();
+  _RecipeDraftPageState createState() => _RecipeDraftPageState();
 }
 
-class _RecipeDetailPageState extends State<RecipeDetailPage> {
+class _RecipeDraftPageState extends State<RecipeDraftPage> {
   
   @override
   Widget build(BuildContext context) {
