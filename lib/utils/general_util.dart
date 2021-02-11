@@ -40,3 +40,9 @@ Future<void> loadSession() async {
       await FlutterSession().set("userName", user.userName);
     }
 }
+
+ String prepareDesc(String desc, int limit){
+       if(desc == null)
+        return "";
+      return desc.length > limit ?  "${desc.substring(0, limit)}..." : desc;
+    }

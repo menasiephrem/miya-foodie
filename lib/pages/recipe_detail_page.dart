@@ -5,6 +5,7 @@ import 'package:foodie/components/recipes/directions_list.dart';
 import 'package:foodie/components/recipes/ingredients_list.dart';
 import 'package:foodie/components/starts.dart';
 import 'package:foodie/models/recipe.dart';
+import 'package:foodie/utils/general_util.dart';
 
 class RecipeDetailPage extends StatefulWidget {
   RecipeDetailPage(this.recipe);
@@ -48,7 +49,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                                     style: TextStyle(color: Color(0xffa59671), fontWeight: FontWeight.w700, fontSize: 26)
                                   ),
                                   Text(
-                                    this.widget.recipe.description,
+                                     prepareDesc(this.widget.recipe.description, 43),
                                     style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 16)
                                   )
                                 ],
@@ -155,7 +156,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                                 style: TextStyle(color: Colors.grey, fontSize: 12)
                               ),
                               Text(
-                                this.widget.recipe.note,
+                                this.widget.recipe.note != null ? this.widget.recipe.note: "",
                                 style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold)
                               )
                             ],
