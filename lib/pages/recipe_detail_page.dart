@@ -28,7 +28,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
               SliverPersistentHeader(
                 pinned: true,
                 floating: false,
-                delegate: MyDynamicHeader(this.widget.recipe),
+                delegate: MyDynamicHeader(this.widget.recipe, null),
               ),
               SliverList(
                 delegate: SliverChildListDelegate(

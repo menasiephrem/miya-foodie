@@ -6,8 +6,9 @@ import 'package:foodie/models/recipe.dart';
 
 class MyDynamicHeader extends SliverPersistentHeaderDelegate {
   int index = 0;
-  MyDynamicHeader(this.recipe);
+  MyDynamicHeader(this.recipe, this.actions);
   final Recipe recipe;
+  final List<Widget> actions;
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return LayoutBuilder(
@@ -37,21 +38,12 @@ class MyDynamicHeader extends SliverPersistentHeaderDelegate {
                     decoration: BoxDecoration(color: Colors.white.withOpacity(0)),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: 50, left: 15),
-                  child: InkWell(
-                    onTap: (){
-                      Navigator.of(context).pop();
-                    },
-                    child: Row(
-                      children: [
-                        Icon(Icons.arrow_back_ios, color: Colors.white, ),
-                        SizedBox(width: 5),
-                        Text("Back", style: TextStyle(color: Colors.white, fontSize: 20),)
-                      ],
-                    )
-                  )
-                )
+                AppBar(
+                          title: Text("Back"),
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                          actions: actions
+                        )
               ],
             ),
           );

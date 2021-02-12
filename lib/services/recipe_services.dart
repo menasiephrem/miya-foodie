@@ -26,9 +26,9 @@ class RecipeService {
 
 Future<void> createRecipeDraft(Recipe recipe) async{
     await _fireStore.collection("recipes_drafts").doc(recipe.id).set(recipe.toJson());
-  }
+}
 
-  Future<List<Recipe>> getAllRecipesDraft(String type) async{
+Future<List<Recipe>> getAllRecipesDraft(String type) async{
     String user = await getLoggedInUser();
     List<Recipe> ret = [];
     QuerySnapshot snapshot = 
@@ -43,6 +43,10 @@ Future<void> createRecipeDraft(Recipe recipe) async{
     });
 
     return ret;
+}
+
+Future<void> updateRecipeDraft(Recipe recipe) async{
+    await _fireStore.collection("recipes_drafts").doc(recipe.id).set(recipe.toJson(), SetOptions(merge: true));
 }
 
   
