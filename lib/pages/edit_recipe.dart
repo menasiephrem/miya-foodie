@@ -99,7 +99,7 @@ class _EditRecipeState extends State<EditRecipe> {
                                 ), 
                                 RawMaterialButton(
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop(_recipe);
                                   },
                                   elevation: 2.0,
                                   child: Icon(

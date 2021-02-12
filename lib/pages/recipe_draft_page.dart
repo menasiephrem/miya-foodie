@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodie/components/app_bar/dynamic_header.dart';
 import 'package:foodie/components/recipes/directions_list.dart';
-import 'package:foodie/components/recipes/ingredients_list.dart';
 import 'package:foodie/components/recipes/ingredinets_draft_list.dart';
 import 'package:foodie/components/starts.dart';
 import 'package:foodie/models/recipe.dart';
@@ -90,13 +89,15 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
         print('File Uploaded');    
         storageReference.getDownloadURL().then((fileURL) { 
           _recipe.img = fileURL;
-          _updateRecipe(_recipe);
+          _updateRecipe(_recipe, goBack: true);
         });    
    } 
 
-    void _updateRecipe(Recipe rec) async {
+    void _updateRecipe(Recipe rec, {bool goBack = false}) async {
       await _recipeService.updateRecipeDraft(rec);
-      Navigator.of(context).pop();
+      if(goBack){
+        Navigator.of(context).pop();
+      } 
     }
 
 
@@ -110,11 +111,11 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
         builder: (BuildContext bc) {
           return SafeArea(
             child: Container(
-              child: new Wrap(
+              child: Wrap(
                 children: <Widget>[
-                  new ListTile(
-                      leading: new Icon(Icons.photo_library),
-                      title: new Text('Photo Library'),
+                  ListTile(
+                      leading: Icon(Icons.photo_library),
+                      title: Text('Photo Library'),
                       onTap: () async {
                       final pickedFile = await picker.getImage(source: ImageSource.gallery, maxHeight:  600 , maxWidth: 600,);
                       if (pickedFile != null) {
@@ -125,9 +126,9 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
                           print('No image selected.');
                         }
                       }),
-                  new ListTile(
-                    leading: new Icon(Icons.photo_camera),
-                    title: new Text('Camera'),
+                  ListTile(
+                    leading: Icon(Icons.photo_camera),
+                    title: Text('Camera'),
                     onTap: () async {
                     final pickedFile = await picker.getImage(source: ImageSource.camera, maxHeight:  600 , maxWidth: 600,);
                         if (pickedFile != null) {
@@ -146,7 +147,6 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
         }
       );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -288,6 +288,7 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
                         ),
                         Container(
                           color: Colors.grey[100],
+                          margin: EdgeInsets.only(bottom: 20),
                           child: TabBar(
                             labelColor: Color(0xffa59671),
                             labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
@@ -298,7 +299,7 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
                           )
                         ),
                         Container(
-                          height: 500,
+                          height: _recipe.ingredients != null? _recipe.ingredients.length > 4 ? 500 : 300 : 200, 
                           child: TabBarView(
                             children: [
                               IngredientsDraft( _recipe, _updateRecipe),
@@ -316,7 +317,7 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
               )
             ],
           )
-        )
+        ),
       )
     );
   }
