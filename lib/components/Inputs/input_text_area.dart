@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 
 class InputTextArea extends StatelessWidget {
-  InputTextArea(this.onSubmit, this.hint, {this.value = ""});
+  InputTextArea(this.onSubmit, this.hint, {this.value = "", this.lines = 4});
   final Function onSubmit;
   final String hint;
   final String value;
+  final int lines;
   @override
   Widget build(BuildContext context) {
 
@@ -17,7 +18,7 @@ class InputTextArea extends StatelessWidget {
     return TextField(
           obscureText: false,
           style: style,
-          maxLines: 4,
+          maxLines: lines,
           controller: _getControler(this.value),
           onChanged: this.onSubmit,
            decoration: InputDecoration(

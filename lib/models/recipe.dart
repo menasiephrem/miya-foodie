@@ -9,7 +9,7 @@ class Recipe {
   String cookingTime;
   String note;
   List<dynamic> ingredients;
-  List<Map<String, String>> directions;
+  List<dynamic> directions;
   DateTime createdAt;
   String createdBy;
   String createdByName;

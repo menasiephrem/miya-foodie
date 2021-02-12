@@ -4,7 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodie/components/app_bar/dynamic_header.dart';
-import 'package:foodie/components/recipes/directions_list.dart';
+import 'package:foodie/components/recipes/directions_draft_list.dart';
 import 'package:foodie/components/recipes/ingredinets_draft_list.dart';
 import 'package:foodie/components/starts.dart';
 import 'package:foodie/models/recipe.dart';
@@ -303,7 +303,7 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
                           child: TabBarView(
                             children: [
                               IngredientsDraft( _recipe, _updateRecipe),
-                              Directions(this.widget.recipe.directions == null ? []: this.widget.recipe.directions),
+                              DirectionDraft(_recipe, _updateRecipe)
                             ],
                           ),
                         )
