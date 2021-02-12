@@ -11,6 +11,9 @@ class InputTextArea extends StatelessWidget {
   Widget build(BuildContext context) {
 
   TextEditingController  _getControler(String text){
+     if(text == ""){
+       return null;
+     }
     var contorler = new TextEditingController(text: text);
     contorler.selection = TextSelection.fromPosition(TextPosition(offset: text.length));
     return contorler;

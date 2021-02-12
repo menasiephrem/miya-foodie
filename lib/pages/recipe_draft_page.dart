@@ -57,6 +57,7 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
           _showPicker(_context);
           break;
         case 'Publish Changes':
+          showAlertDialog(_context);
           break;  
       }
     } 
@@ -99,6 +100,36 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
         Navigator.of(context).pop();
       } 
     }
+
+    showAlertDialog(BuildContext context) {
+
+    // set up the button
+        Widget okButton = FlatButton(
+          child: Text("Yes"),
+          onPressed: () {
+            _recipeService.publishRecipeDraft(_recipe);
+            Navigator.of(context).pop();
+            Navigator.of(context).pop(_recipe);
+          },
+        );
+
+        // set up the AlertDialog
+        AlertDialog alert = AlertDialog(
+          title: Text("Are you sure?"),
+          content: Text("You are about to publish the recipe. You can't undo this taks"),
+          actions: [
+            okButton,
+          ],
+        );
+
+        // show the dialog
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return alert;
+          },
+        );
+  }
 
 
   void _showPicker(contextcontext) async{

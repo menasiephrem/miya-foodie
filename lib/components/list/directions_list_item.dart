@@ -27,7 +27,7 @@ class DirectionsListItem extends StatelessWidget {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  this.title.split("^").length > 1 ? this.title.split("^")[1] : this.title.split("^")[0],
+                  this.title,
                   style: TextStyle(color:  Color(0xffa59671), fontSize: 15, fontWeight: FontWeight.w600),
                 )
             ],

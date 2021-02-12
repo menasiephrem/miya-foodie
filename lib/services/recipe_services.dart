@@ -49,5 +49,10 @@ Future<void> updateRecipeDraft(Recipe recipe) async{
     await _fireStore.collection("recipes_drafts").doc(recipe.id).set(recipe.toJson(), SetOptions(merge: true));
 }
 
+    Future<void> publishRecipeDraft(Recipe recipe) async{
+        await this.createRecipe(recipe);
+        await _fireStore.collection("recipes_drafts").doc(recipe.id).delete();
+    }
+
   
 }
