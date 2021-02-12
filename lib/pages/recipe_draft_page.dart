@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:foodie/components/app_bar/dynamic_header.dart';
 import 'package:foodie/components/recipes/directions_list.dart';
 import 'package:foodie/components/recipes/ingredients_list.dart';
+import 'package:foodie/components/recipes/ingredinets_draft_list.dart';
 import 'package:foodie/components/starts.dart';
 import 'package:foodie/models/recipe.dart';
 import 'package:foodie/services/recipe_services.dart';
@@ -13,6 +14,7 @@ import 'package:foodie/utils/general_util.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../finder.dart';
+import 'edit_recipe.dart';
 
 class RecipeDraftPage extends StatefulWidget {
   RecipeDraftPage(this.recipe);
@@ -43,6 +45,14 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
     void _handleClick(String value) {
       switch (value) {
         case 'Edit':
+            Navigator.push(
+              _context,
+              MaterialPageRoute(builder: (context) => EditRecipe(this._recipe))
+            ).then((value) => {
+              setState((){
+                _recipe = value;
+              })
+            });
           break;
         case 'Change Picture':
           _showPicker(_context);
@@ -80,12 +90,12 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
         print('File Uploaded');    
         storageReference.getDownloadURL().then((fileURL) { 
           _recipe.img = fileURL;
-          _updateRecipe();
+          _updateRecipe(_recipe);
         });    
    } 
 
-    void _updateRecipe() async {
-      await _recipeService.updateRecipeDraft(_recipe);
+    void _updateRecipe(Recipe rec) async {
+      await _recipeService.updateRecipeDraft(rec);
       Navigator.of(context).pop();
     }
 
@@ -206,23 +216,7 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
                                     style: TextStyle(color: Colors.brown, fontSize: 12)
                                   ),
                                   Spacer(),
-                                  Container(
-                                    height: 25,
-                                    child: FlatButton(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20.0),
-                                        side: BorderSide(color: Colors.grey[300])),
-                                      onPressed: () {},
-                                      color: Colors.grey[300],
-                                      textColor: Colors.white,
-                                      child: Container(
-                                        width: 60,
-                                        height: 15,
-                                        alignment: Alignment.center,
-                                        child: Text("Add To Fav", style: TextStyle( color: Colors.black, fontSize: 10)),
-                                      ),
-                                    )
-                                  )
+                                Text("This a draft!!")
                                 ],
                               ),
                               SizedBox(height: 10),
@@ -307,7 +301,7 @@ class _RecipeDraftPageState extends State<RecipeDraftPage> {
                           height: 500,
                           child: TabBarView(
                             children: [
-                              Ingredients(this.widget.recipe.ingredients == null ? [] : this.widget.recipe.ingredients),
+                              IngredientsDraft( _recipe, _updateRecipe),
                               Directions(this.widget.recipe.directions == null ? []: this.widget.recipe.directions),
                             ],
                           ),
